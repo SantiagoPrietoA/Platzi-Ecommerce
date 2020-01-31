@@ -17,7 +17,9 @@ export default function Cart() {
 
   useEffect(() => {
     setStripe(
-      window.Stripe(process.env.STRIPE_PK, { betas: ["checkout_beta_4"] })
+      window.Stripe("pk_test_wBeLjvwyL5kBo4dG96c4497t00Zh1yeHk9", {
+        betas: ["checkout_beta_4"],
+      })
     )
     getTotal()
   }, [])
@@ -27,8 +29,10 @@ export default function Cart() {
 
     const { error } = await stripe.redirectToCheckout({
       items: cart.map(({ sku, quantity }) => ({ sku, quantity })),
-      successUrl: process.env.SUCCESS_REDIRECT,
-      cancelUrl: process.env.CANCEL_REDIRECT,
+      successUrl:
+        "https://platzi-ecommerce-santiago-prieto.netlify.com/gracias/",
+      cancelUrl:
+        "https://platzi-ecommerce-santiago-prieto.netlify.com/gracias/",
     })
     if (error) {
       throw error
